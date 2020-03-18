@@ -1,11 +1,10 @@
-# %%
 import numpy as np
 import pandas as pd
 
 seed = 0
 np.random.seed(seed)
 
-df = pd.read_csv('data3/total_11category_final.csv', names=['sentences','category'], encoding='utf-8')
+df = pd.read_csv('data3/total_37category.csv', names=['sentences','category'], encoding='utf-8')
 
 sents = list(df['sentences'].astype(str))
 sents = sents[1:]
@@ -20,7 +19,6 @@ for line in sents:
 
 print(sentences[:10])
 
-# %%
 from gensim.models.word2vec import Word2Vec
 import logging
 
@@ -29,7 +27,7 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=lo
 model = Word2Vec(sentences, size=200, window=10, iter=300, workers=4, min_count=5, sg=1,)
 model.init_sims(replace=True)
 
-model.save('new_model/nin20200303_long.model')
+model.save('model/nin20200318_37category.model')
 
 # # %%
 # # 시각화...
