@@ -11,7 +11,7 @@ import pandas as pd
 seed = 30
 np.random.seed(seed)
 
-df = pd.read_csv('data3/total_8category.csv', names=['sentences', 'category'], encoding='utf-8')
+df = pd.read_csv('data3/total_37category.csv', names=['sentences', 'category'], encoding='utf-8')
 # data3 -> 1 data 1 question
 
 sentences = list(df['sentences'].astype(str))
@@ -89,7 +89,7 @@ X_train, X_test, y_train, y_test = train_test_split(x_data, y_data, random_state
 # Embedding Layer에 주입할 w2v 모델 처리
 import gensim.models as g
 
-w2v_model = g.Doc2Vec.load('new_model/nin20200303_long.model')
+w2v_model = g.Doc2Vec.load('model/nin20200318_37category.model')
 
 vocab = list(w2v_model.wv.vocab)
 vector = w2v_model[vocab]
@@ -112,7 +112,7 @@ for word, i in word_index.items():
             # word_index의 index는 1부터 시작
 
 
-print(max_words) # 12075 w2v num of vacab
+print(max_words) # 18041 w2v num of vacab
 print(word_index['하다'])
 print(embedding_index['하다'])
 print(embedding_matrix[1])
@@ -158,46 +158,46 @@ early_stop = EarlyStopping(monitor='loss', patience=10, mode='auto')
 for epoch in range(1):
     print('Total Epoch :', epoch+1)
 
-    history = model.fit(X_train, y_train, batch_size=64, epochs=300, callbacks=[early_stop], verbose=1, validation_split=0.2)
+    history = model.fit(X_train, y_train, batch_size=128, epochs=300, callbacks=[early_stop], verbose=1, validation_split=0.2)
 
     print('ACC : ', history.history['acc'][-1])
     print('LOSS : ', history.history['loss'][-1]) # train 49698
     print('테스트 정확도 : %.4f' % (model.evaluate(X_test,y_test)[1])) # 12425
 
-    # model.save('new_model/cnn1d_model_8category_'+ str(epoch) + '.h5')
+    model.save('model/cnn1d_model_37category_'+ str(epoch) + '.h5')
 
-    # list_input = []
-    # list_true = []
-    # list_predict = []
+    list_input = []
+    list_true = []
+    list_predict = []
 
-    # def test_predict(t):
-    #     xx = X_train[t].reshape(1,X_train[t].shape[0])
-    #     result_idx = model.predict(xx)
-    #     idx, result_cate = idx_to_txt(result_idx, idx_to_category)
-    #     true = np.argmax(y_train[t])
+    def test_predict(t):
+        xx = X_train[t].reshape(1,X_train[t].shape[0])
+        result_idx = model.predict(xx)
+        idx, result_cate = idx_to_txt(result_idx, idx_to_category)
+        true = np.argmax(y_train[t])
 
-    #     input_sents = []
-    #     for token in X_train[t]:
-    #         if token == 0:
-    #             pass
-    #         else:
-    #             input_sents.append(index_word[token])
-    #     input_sents = '//'.join(input_sents)
+        input_sents = []
+        for token in X_train[t]:
+            if token == 0:
+                pass
+            else:
+                input_sents.append(index_word[token])
+        input_sents = '//'.join(input_sents)
 
-    #     list_input.append(input_sents)
-    #     list_true.append(true)
-    #     list_predict.append(str(idx)+str(result_cate))
+        list_input.append(input_sents)
+        list_true.append(true)
+        list_predict.append(str(idx)+str(result_cate))
 
 
-    # test = [3, 10, 50, 500, 700, 1000, 1300, 1800, 3000, 10000, 20000]
-    # for t in test:
-    #     test_predict(t)
+    test = [3, 10, 50, 500, 700, 1000, 1300, 1800, 3000, 10000, 20000]
+    for t in test:
+        test_predict(t)
 
-    # for i in range(len(list_input)):
-    #     print('INPUT : ', list_input[i])
-    #     print('TRUE : ', list_true[i])
-    #     print('PREDICT : ', list_predict[i])
-    #     print('*'*120)
+    for i in range(len(list_input)):
+        print('INPUT : ', list_input[i])
+        print('TRUE : ', list_true[i])
+        print('PREDICT : ', list_predict[i])
+        print('*'*120)
 
 
 

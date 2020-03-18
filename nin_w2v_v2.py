@@ -17,7 +17,7 @@ for line in sents:
         tmp.append(word)
     sentences.append(tmp)
 
-print(sentences[:10])
+# print(sentences[:10])
 
 from gensim.models.word2vec import Word2Vec
 import logging
