@@ -4,7 +4,7 @@ import pandas as pd
 seed = 0
 np.random.seed(seed)
 
-df = pd.read_csv('data3/total_8category.csv', names=['sentences', 'category'], encoding='utf-8')
+df = pd.read_csv('data3/total_37category.csv', names=['sentences', 'category'], encoding='utf-8')
 # data3 -> 1 data 1 question
 
 sentences = list(df['sentences'].astype(str))
@@ -40,31 +40,34 @@ idx_to_category = {index: word for index, word in enumerate(category_sort)}
 # {'고혈압': 0, '구취': 1, '두통': 2, '디스크': 3, '손발저림': 4, '심계항진': 5, '어지럼증': 6, '요통': 7, '잇몸염증': 8, '치은염': 9, '하지마비': 10}
 # {0: '구취', 1: '두통', 2: '손발저림', 3: '심계항진', 4: '어지럼증', 5: '요통', 6: '잇몸염증', 7: '하지마비'}
 
+# {0: '가래', 1: '가슴통증', 2: '고열', 3: '관절통', 4: '구취', 5: '구토', 6: '기침', 7: '다뇨', 8: '다식', 9: '다음', 10: '두통', 11: '반신마비', 12: '방사통', 13: '복부팽만', 14: '복시', 15: '복통', 16: '설사', 17: '소양감', 18: '소화불량', 19: '손발저림', 20: '시력감소', 21: '시야장애', 22: '식욕부진', 23: '심계항진', 24: '어지럼증', 25: '언어장애', 26: '연하곤란', 27: '오심', 28: '요통', 29: '운
+# 동장애', 30: '잇몸염증', 31: '천명', 32: '체중감소', 33: '피로감', 34: '하지마비', 35: '호흡곤란'}
 
 ##### pickle로 저장
-word_index
-index_word
-category_to_idx
-idx_to_category
+# word_index
+# index_word
+# category_to_idx
+# idx_to_category
 
 
+# SAVE
 import pickle
 
-with open('word_index.pickle', 'wb') as fw:
+with open('word_index_v2.pickle', 'wb') as fw:
     pickle.dump(word_index, fw)
 
-with open('index_word.pickle', 'wb') as fw:
+with open('index_word_v2.pickle', 'wb') as fw:
     pickle.dump(index_word, fw)
 
-with open('category_to_idx.pickle', 'wb') as fw:
+with open('category_to_idx_v2.pickle', 'wb') as fw:
     pickle.dump(category_to_idx, fw)
 
-with open('idx_to_category.pickle', 'wb') as fw:
+with open('idx_to_category_v2.pickle', 'wb') as fw:
     pickle.dump(idx_to_category, fw)
 
 
 
-
+# LOAD
 # with open('word_index.pickle', 'rb') as fr:
 #     word_index = pickle.load(fr)
 
