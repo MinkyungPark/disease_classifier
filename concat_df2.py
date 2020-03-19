@@ -24,7 +24,7 @@ def concat():
     df7 = makeCategory('nin202002221952하지 마비', '하지마비')
     df8 = makeCategory('nin202002222226요통', '요통')
     df9 = makeCategory('nin202002230030잇몸 염증', '잇몸염증')
-    df10 = 
+    df10 = makeCategory('nin202003191624목마름', '다음')
     df11 = makeCategory('nin202003131937체중감소','체중감소')
     df12 = makeCategory('nin202003132011천명','천명')
     df13 = makeCategory('nin202003132121가래','가래')
@@ -56,7 +56,7 @@ def concat():
     result = pd.concat([df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,\
         df11,df12,df13,df14,df15,df16,df17,df18,df19,df20,df20,\
             df21,df22,df23,df24,df25,df26,df27,df28,df29,df30,\
-                df31,df32,df33,df34,df35,df36,df37,df38], axis=0)
+                df31,df32,df33,df34,df35,df36,df37], axis=0)
 
     return result
 

@@ -1,33 +1,33 @@
 import numpy as np
 import pandas as pd
 
-# seed = 0
-# np.random.seed(seed)
+seed = 0
+np.random.seed(seed)
 
-# df = pd.read_csv('data3/total_37category.csv', names=['sentences','category'], encoding='utf-8')
+df = pd.read_csv('data3/total_36category.csv', names=['sentences','category'], encoding='utf-8')
 
-# sents = list(df['sentences'].astype(str))
-# sents = sents[1:]
+sents = list(df['sentences'].astype(str))
+sents = sents[1:]
 
-# sentences = []
+sentences = []
 
-# for line in sents:
-#     tmp = []
-#     for word in line.split():
-#         tmp.append(word)
-#     sentences.append(tmp)
+for line in sents:
+    tmp = []
+    for word in line.split():
+        tmp.append(word)
+    sentences.append(tmp)
 
-# # print(sentences[:10])
+# print(sentences[:10])
 
-# from gensim.models.word2vec import Word2Vec
-# import logging
+from gensim.models.word2vec import Word2Vec
+import logging
 
-# logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
-# model = Word2Vec(sentences, size=200, window=10, iter=300, workers=4, min_count=5, sg=1,)
-# model.init_sims(replace=True)
+model = Word2Vec(sentences, size=200, window=10, iter=200, workers=4, min_count=10, sg=1,)
+model.init_sims(replace=True)
 
-# model.save('model/nin20200318_37category.model')
+model.save('model/nin20200319_36category.model')
 
 
 # 시각화...
