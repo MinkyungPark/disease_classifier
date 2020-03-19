@@ -82,7 +82,7 @@ for word in category:
 y_data = np.asarray(y_data)
 y_data = np_utils.to_categorical(y_data)
 
-X_train, X_test, y_train, y_test = train_test_split(x_data, y_data, random_state=42, test_size=0.25)
+X_train, X_test, y_train, y_test = train_test_split(x_data, y_data, random_state=42, test_size=0.2)
 
 
 # %% 4
@@ -124,7 +124,7 @@ from keras.layers.embeddings import Embedding
 
 model = Sequential()
 model.add(Embedding(max_words, embedding_dim, input_length=sents_len, weights=[embedding_matrix], trainable=False))
-model.add(Conv1D(filters=50, kernel_size=5, padding='same', activation='relu'))
+model.add(Conv1D(filters=20, kernel_size=5, padding='same', activation='relu'))
 model.add(MaxPooling1D(pool_size=2)) # 반으로
 model.add(LSTM(50))
 model.add(Dropout(0.2))
@@ -158,7 +158,7 @@ early_stop = EarlyStopping(monitor='loss', patience=10, mode='auto')
 for epoch in range(1):
     print('Total Epoch :', epoch+1)
 
-    history = model.fit(X_train, y_train, batch_size=128, epochs=300, callbacks=[early_stop], verbose=1, validation_split=0.2)
+    history = model.fit(X_train, y_train, batch_size=128, epochs=300, callbacks=[early_stop], verbose=1, validation_split=0.25)
 
     print('ACC : ', history.history['acc'][-1])
     print('LOSS : ', history.history['loss'][-1]) # train 49698

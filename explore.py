@@ -11,7 +11,7 @@ import pandas as pd
 seed = 0
 np.random.seed(seed)
 
-df = pd.read_csv('data3/total_8category.csv', names=['sentences', 'category'], encoding='utf-8')
+df = pd.read_csv('data3/total_37category.csv', names=['sentences', 'category'], encoding='utf-8')
 # data3 -> 1 data 1 question
 
 print(df.info())
@@ -123,7 +123,7 @@ print(X_test.shape)
 import gensim.models as g
 
 # w2v_model = g.Doc2Vec.load('model/nin20200222_all_.model')
-w2v_model = g.Doc2Vec.load('new_model/nin20200228_long_.model')
+w2v_model = g.Doc2Vec.load('model/nin20200318_37category.model')
 
 vocab = list(w2v_model.wv.vocab)
 vector = w2v_model[vocab]
@@ -153,10 +153,4 @@ for word, i in word_index.items():
             # word_index의 index는 1부터 시작
 
 # print(embedding_matrix[0])
-
-
-
-
-
-
-
+print(len(embedding_matrix))
