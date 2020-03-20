@@ -11,7 +11,7 @@ import pandas as pd
 seed = 30
 np.random.seed(seed)
 
-df = pd.read_csv('data3/total_37category.csv', names=['sentences', 'category'], encoding='utf-8')
+df = pd.read_csv('data3/total_36category.csv', names=['sentences', 'category'], encoding='utf-8')
 # data3 -> 1 data 1 question
 
 sentences = list(df['sentences'].astype(str))
@@ -89,7 +89,7 @@ X_train, X_test, y_train, y_test = train_test_split(x_data, y_data, random_state
 # Embedding Layer에 주입할 w2v 모델 처리
 import gensim.models as g
 
-w2v_model = g.Doc2Vec.load('model/nin20200318_37category.model')
+w2v_model = g.Doc2Vec.load('model/nin20200319_36category.model')
 
 vocab = list(w2v_model.wv.vocab)
 vector = w2v_model[vocab]
@@ -164,7 +164,7 @@ for epoch in range(1):
     print('LOSS : ', history.history['loss'][-1]) # train 49698
     print('테스트 정확도 : %.4f' % (model.evaluate(X_test,y_test)[1])) # 12425
 
-    model.save('model/cnn1d_model_37category_'+ str(epoch) + '.h5')
+    model.save('model/cnn1d_model_36category_'+ str(epoch) + '.h5')
 
     list_input = []
     list_true = []

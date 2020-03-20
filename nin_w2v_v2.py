@@ -42,7 +42,7 @@ import pandas as pd
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.family'] = 'Malgun Gothic'
 
-model_name = 'new_model/nin20200318_37category.model'
+model_name = 'model/nin20200319_36category.model'
 model = g.Word2Vec.load(model_name)
 
 vocab = list(model.wv.vocab)
