@@ -12,24 +12,26 @@ np.random.seed(seed)
 
 import pickle
 
-with open('pickleFile/word_index.pickle', 'rb') as fr:
+with open('pickleFile/word_index_v3.pickle', 'rb') as fr:
     word_index = pickle.load(fr)
 
-with open('pickleFile/index_word.pickle', 'rb') as fr:
+with open('pickleFile/index_word_v3.pickle', 'rb') as fr:
     index_word = pickle.load(fr)
 
-with open('pickleFile/category_to_idx.pickle', 'rb') as fr:
+with open('pickleFile/category_to_idx_v3.pickle', 'rb') as fr:
     category_to_idx = pickle.load(fr)
 
-with open('pickleFile/idx_to_category.pickle', 'rb') as fr:
+with open('pickleFile/idx_to_category_v3.pickle', 'rb') as fr:
     idx_to_category = pickle.load(fr)
 
 
 
-df = pd.read_csv('probability/true_dataset.csv', encoding='utf-8')
+df = pd.read_csv('data3/total_36category.csv', encoding='utf-8')
 
 sentences = list(df['sentences'].astype(str))
-true = list(df['ture_value'].astype(int))
+category = list(df['category'].astype(str))
+# true_col = list(df['true_col'].astype(int))
+
 
 from keras.preprocessing.sequence import pad_sequences
 
@@ -50,13 +52,20 @@ x_data = pad_sequences(encoded, maxlen=sents_len)
 from keras.utils import np_utils
 from sklearn.model_selection import train_test_split
 
-y_data = np.asarray(true)
+y_data = []
+for word in category:
+    y_data.append(category_to_idx[word])
+
+y_data = np.asarray(y_data)
 y_data = np_utils.to_categorical(y_data)
+
+# y_data = np.asarray(true_col)
+# y_data = np_utils.to_categorical(y_data)
 
 
 # %% 5 MODEL
 from keras.models import load_model
-model = load_model('probability/cnn1d_model_8category_proba_0.h5')
+model = load_model('model\cnn1d_model_36category_0.h5')
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
 
 from sklearn.metrics import confusion_matrix, classification_report
@@ -75,5 +84,7 @@ if __name__ == "__main__":
         pred.append(pred_idx)
 
     print(confusion_matrix(true, pred))
-    print(classification_report(true, pred, target_names=['구취','두통','손발저림','심계항진','어지럼증','요통','잇몸염증','하지마비']))
+    print(classification_report(true, pred, target_names=['0가래,1가슴통증,2고열,3관절통,4구취,5구토,6기침,7다뇨,8다식,9다음,10두통,11반신마비,12방사통,13복부팽만,\
+        14복시,15복통,16설사,17소양감,18소화불량,19손발저림,20시력감소,21시야장애,22식욕부진,23심계항진,24어지럼증,25언어장애,26연하곤란,27오심,28요통,29운동장애,\
+            30잇몸염증,31천명,32체중감소,33피로감,34하지마비,35호흡곤란']))
 

@@ -4,7 +4,7 @@ import pandas as pd
 seed = 0
 np.random.seed(seed)
 
-df = pd.read_csv('data3/total_37category.csv', names=['sentences', 'category'], encoding='utf-8')
+df = pd.read_csv('data3/total_36category.csv', names=['sentences', 'category'], encoding='utf-8')
 # data3 -> 1 data 1 question
 
 sentences = list(df['sentences'].astype(str))
@@ -53,16 +53,16 @@ idx_to_category = {index: word for index, word in enumerate(category_sort)}
 # SAVE
 import pickle
 
-with open('word_index_v2.pickle', 'wb') as fw:
+with open('word_index_v3.pickle', 'wb') as fw:
     pickle.dump(word_index, fw)
 
-with open('index_word_v2.pickle', 'wb') as fw:
+with open('index_word_v3.pickle', 'wb') as fw:
     pickle.dump(index_word, fw)
 
-with open('category_to_idx_v2.pickle', 'wb') as fw:
+with open('category_to_idx_v3.pickle', 'wb') as fw:
     pickle.dump(category_to_idx, fw)
 
-with open('idx_to_category_v2.pickle', 'wb') as fw:
+with open('idx_to_category_v3.pickle', 'wb') as fw:
     pickle.dump(idx_to_category, fw)
 
 
