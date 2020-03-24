@@ -4,6 +4,7 @@ config = ConfigProto()
 config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
 
+import sys
 import numpy as np
 import pandas as pd
 
@@ -70,6 +71,8 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc']
 
 from sklearn.metrics import confusion_matrix, classification_report
 
+sys.stdout = open('result.txt','w')
+
 if __name__ == "__main__":
     true = []
     pred = []
@@ -84,8 +87,8 @@ if __name__ == "__main__":
         pred.append(pred_idx)
 
     print(confusion_matrix(true, pred))
-    print(classification_report(true, pred))
+    # print(classification_report(true, pred))
 
 # target_names=['0가래','1가슴통증','2고열','3관절통','4구취','5구토','6기침','7다뇨','8다식','9다음','10두통','11반신마비','12방사통','13복부팽만',\
-#         '14복시','15복통','16설사','17소양감','18소화불량','19손발저림','20시력감소','21시야장애','22식욕부진','23심계항진','24어지럼증','25언어장애','26연하곤란','27오심','28요통','29운동장애',\
-#             '30잇몸염증','31천명','32체중감소','33피로감','34하지마비','35호흡곤란']
+#         '14복시','15복통','16설사','17소양감','18소화불량','19손발저림','20시력감소','21시야장애','22식욕부진','23심계항진','24어지럼증','25언어장애',\
+#          '26연하곤란','27오심','28요통','29운동장애','30잇몸염증','31천명','32체중감소','33피로감','34하지마비','35호흡곤란']
